@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="utf-8">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!----><script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <body>
- <!-- Anything applied form vue has to be in a div -->      
+ <!-- Anything applied form vue has to be in a div -->  
+
 <div id="todo-list-example">
-  <form v-on:submit.prevent="addNewTodo">
-    <label for="new-todo">Add a todo</label>
+  <form v-on:submit.prevent="addNewTodo">  <!-- This will reference the function below-->
+    <label for="new-todo">Add a Task!</label>
     <input
-      v-model="newTodoText"
+      v-model="newTodoText" 
       id="new-todo"
-      placeholder="E.g. Feed the cat"
+      placeholder="E.g. Pet the dog"
     >
     <button>Add</button>
   </form>
@@ -26,6 +27,16 @@
 </div>  
   <script>  // Creating new instance of Vue which is a constructor
 
+Vue.component('todo-item', {
+  template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">Remove</button>\
+    </li>\
+  ',
+  props: ['title']
+
+})
      new Vue({
   el: '#todo-list-example',
   data: {
@@ -33,21 +44,22 @@
     todos: [
       {
         id: 1,
-        title: 'Do the dishes',
+        title: 'File Paperwork',
       },
       {
         id: 2,
-        title: 'Take out the trash',
+        title: 'Work on upstairs',
       },
       {
         id: 3,
-        title: 'Mow the lawn'
+        title: 'Study for Finals'
       }
     ],
     nextTodoId: 4
   },
   methods: {
-    addNewTodo: function () {
+    addNewTodo: function () 
+    {
       this.todos.push({
         id: this.nextTodoId++,
         title: this.newTodoText
@@ -55,7 +67,10 @@
       this.newTodoText = ''
     }
   }
-});
+})
         </script>
+        <div>
+          <p>Fix this!</p>
+        </div>
     </body>
 </html>
